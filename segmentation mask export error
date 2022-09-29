@@ -1,0 +1,22 @@
+We are experiencing an issue after exporting segmentation masks from a project. The masks have the wrong resolution and the annotations inside seems cropped.
+Our original dataset had 1920x1080 images and the masks are exported as 1080x1920 with the content half cropped.
+We enabled and disabled Auto-orient during export, but the issue is still present. Those are EXIF data of the uploaded dataset images:
+
+|create|2022-09-28T22:15:21+00:00|
+|---|---|
+|modify|2022-09-28T22:15:21+00:00|
+|cHRM |chunk was found (see Chromaticity, above)|
+|gAMA |gamma=0.45454544 (See Gamma, above)|
+|IHDR.bit_depth |8|
+|IHDR.color_type |2 (Truecolor)|
+|IHDR.interlace_method|0 (Not interlaced)|
+|IHDR.width,height |1920, 1080|
+|sRGB |intent=0 (See Rendering intent)|
+
+To reproduce:
+-Create a semantic segmentation project
+-Upload some images (ours were 1920x1080)
+-Make annotations (we used polygon tools)
+-Generate a dataset with no augmentation and only Auto-orient
+-Export semantic segmentation masks
+-Check the masks, they should have wrong resolution and annotations inside.
